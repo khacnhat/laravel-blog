@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Post;
 
 class PostController extends Controller
 {
     public function listAllPosts(){
-        $posts = Post::all();//Thay cho câu query
+        $posts = Post::with(["category"])
+            ->paginate(20);//Thay cho câu query
 
         return view("list", ["posts" => $posts]);
     }
 
     public function showAddForm(){
-        return view("add");
+        $categories = Category::all();
+        return view("add", ["categories" => $categories]);
     }
 
     public function createPost(Request $request){
         $post = new Post();
         $post->title = $request->input("title");
         $post->content = $request->input("content");
+        $post->category_id = $request->input("category_id");
         $post->save();
         return redirect(route("post.list"));
 

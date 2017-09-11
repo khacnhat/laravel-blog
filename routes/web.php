@@ -18,3 +18,10 @@ Route::get('/{id}/edit', "PostController@showEditForm")->name("post.edit");
 Route::post('/{id}/edit', "PostController@updatePost")->name("post.update");
 Route::get('/{id}/delete', "PostController@showDeleteForm")->name("post.deleteForm");
 Route::post('/{id}/delete', "PostController@deletePost")->name("post.delete");
+
+Route::get('/test', function (){
+    return "abc";
+});
+Route::get('/test2', function (){
+    return view("welcome");
+});
